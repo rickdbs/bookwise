@@ -10,39 +10,18 @@ class DB {
 
     }
 
-    /**
-     * Retorna todos os livros do banco de dados
-     * 
-     * @return array[Livro]
-     * 
-     */
-    public function livros($pesquisa = null) {
 
-        $prepare = $this->db->prepare("select * from livros where titulo like :pesquisa");
+    public function query($query, $class = null, $params = []){
+        
+        $prepare = $this->db->prepare($query); 
 
-        $prepare->bindValue('pesquisa', "%$pesquisa%");
+        if($class){
+          $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
+        }
 
-        $prepare->setFetchMode(PDO::FETCH_CLASS, Livro::class);
+        $prepare->execute($params); 
 
-        $prepare->execute();
-
-        return $prepare->fetchAll();
-
-       
-
-    }
-
-    public function livro($id) {
-      
-      $prepare = $this->db->prepare("select * from livros where id = :id");
-
-      $prepare->bindValue('id', $id);
-
-      $prepare->setFetchMode(PDO::FETCH_CLASS, Livro::class);
-
-      $prepare->execute();
-
-      return $prepare->fetchAll();  
+        return $prepare;
 
     }
 
