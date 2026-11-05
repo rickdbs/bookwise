@@ -6,23 +6,39 @@ class DB {
 
     public function __construct($config) {
 
-      
-      $connectionString = $config['driver'] . ':' . $config['database'];
-
-        $this->db = new PDO($connectionString);
+        $this->db = new PDO($this->getDsn($config));
 
     }
 
+    private function getDsn($config) {
 
-    public function query($query, $class = null, $params = []){
-        
-        $prepare = $this->db->prepare($query); 
+        $driver = $config['driver'];
 
-        if($class){
-          $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
+        unset($config['driver']);
+
+        $dsn = $driver . ':' . http_build_query($config, '', ';');
+
+        if ($driver == 'sqlite') {
+
+            $dsn = $driver . ':' . $config['database'];
+
         }
 
-        $prepare->execute($params); 
+        return $dsn;
+
+    }
+
+    public function query($query, $class = null, $params = []) {
+
+        $prepare = $this->db->prepare($query);
+
+        if ($class) {
+
+            $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
+
+        }
+
+        $prepare->execute($params);
 
         return $prepare;
 
