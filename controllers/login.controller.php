@@ -1,7 +1,5 @@
 <?php
 
 
-echo "oi do login";
-
-
-view('login');
+$mensagem = $_REQUEST['mensagem'] ?? '';
+view('login', compact('mensagem'));

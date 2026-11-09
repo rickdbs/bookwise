@@ -1,29 +1,41 @@
 <?php
 
-function view($view, $data = []){
+function view($view, $data = []) {
 
-  foreach($data as $key => $value){
-    $$key = $value;
-  }
+    foreach($data as $key => $value) {
 
-  require "views/templates/app.php";
+        $$key = $value;
+
+    }
+
+    require 'views/template/app.php';
 
 }
 
-function dd (...$dump){
-  echo '<pre>';
+function dd(...$dump) {
+
+    dump($dump);
+
+    die();
+
+}
+
+function dump(...$dump) {
+
+    echo '<pre>';
+
     var_dump($dump);
-  echo '<pre>';
-  die();
+
+    echo '</pre>';
+
 }
 
-function abort($code){
-  
+function abort($code) {
+
     http_response_code($code);
 
     view($code);
 
     die();
-  
-  
+
 }

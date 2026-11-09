@@ -52,13 +52,42 @@
 
     <h1 class="border-b border-stone-700 text-stone-400 font-bold px-4 py-2">Login</h1>
 
-    <form class="p-4 space-y-4" action="">
+    <form class="p-4 space-y-4" action="/registrar" method="post">
+
+      <?php if(strlen($mensagem) > 0): ?>
+
+        <div class="border-green-800 bg-green-900 text-green-400 px-4 py-1 rounded-md border-2 hover:bg-stone-800">
+          <?= $mensagem ?>
+          
+        </div>
+      
+      <?php endif; ?>
+
+
 
       <div class="flex flex-col">
         <div class="flex flex-col">
 
 
           <label class="text-stone-400 ml-2 mb-1">Nome</label>
+
+          <input
+            type="text"
+
+            name="nome" required
+
+            class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1 w-60"
+
+            placeholder="Pesquisar...">
+
+
+
+        </div>
+
+        <div class="flex flex-col">
+
+
+          <label class="text-stone-400 ml-2 mb-1">E-mail</label>
 
           <input
             type="email"
@@ -73,31 +102,13 @@
 
         </div>
 
-        <div class="flex flex-col">
 
-
-          <label class="text-stone-400 ml-2 mb-1">Nome</label>
-
-          <input
-            type="email"
-
-            name="email_confirmacao" required
-
-            class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1 w-60"
-
-            placeholder="Pesquisar...">
-
-
-
-        </div>
-
-
-        <label class="text-stone-400 ml-2 mb-1">E-mail</label>
+        <label class="text-stone-400 ml-2 mb-1">Confirme o seu E-mail</label>
 
         <input
           type="email"
 
-          name="email" required
+          name="email_confirmacao" required
 
           class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1 w-60"
 
@@ -109,7 +120,7 @@
 
       <div class="flex flex-col">
 
-        <label class="text-stone-400 ml-2 mb-1">E-mail</label>
+        <label class="text-stone-400 ml-2 mb-1">Senha</label>
 
         <input
           type="password"
